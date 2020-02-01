@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xwx.mapper.TopicMapper">
+
+	<!-- 第一个问题,用的数据库 -->
+	<select id="getList" resultType="com.xwx.entity.Item">
+		select a.*,GROUP_CONCAT(b.name)tname  from vote_item a LEFT JOIN vote_topic b on a.topic_id = b.id GROUP BY a.id  HAVING a.topic_id=1	
+	</select>
+	
+	
+	<!-- 回显 -->
+	<select id="getToUpd" resultType="com.xwx.entity.Item">
+		select * from vote_item where id = #{id}
+	</select>
+
+	<!-- 更新问题1 -->
+	<update id="upd1">
+		update vote_item set votes = #{votes} where id = #{id}
+	</update>
+	
+	
+	
+	<!-- 第二个问题,你公司里用的Web层框架是什么？ -->
+	<select id="getList2" resultType="com.xwx.entity.Item">
+		select sum(votes) num,a.*,GROUP_CONCAT(b.name)tname from vote_item a LEFT JOIN vote_topic b on a.topic_id = b.id GROUP BY a.id  HAVING a.topic_id=2
+	</select>
+
+	<!-- 第三个问题,你公司里用的持久层框架是什么？ -->
+	<select id="getList3" resultType="com.xwx.entity.Item">
+		select sum(votes) num,a.*,GROUP_CONCAT(b.name)tname from vote_item a LEFT JOIN vote_topic b on a.topic_id = b.id GROUP BY a.id  HAVING a.topic_id=3
+	</select>
+
+	<!-- 第四个问题,你公司使用了哪些页面UI框架？ -->
+	<select id="getList4" resultType="com.xwx.entity.Item">
+		select sum(votes) num,a.*,GROUP_CONCAT(b.name)tname from vote_item a LEFT JOIN vote_topic b on a.topic_id = b.id GROUP BY a.id  HAVING a.topic_id=4
+	</select>
+</mapper>
